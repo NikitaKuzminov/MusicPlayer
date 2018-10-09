@@ -8,8 +8,6 @@ import CurrentTrackComponent from "../components/CurrentTrackComponent/CurrentTr
 class CurrentTrack extends React.Component {
   render() {
     const { currentTrack } = this.props;
-
-    console.log(currentTrack);
     return (
       <div>
         <CurrentTrackComponent currentTrack={currentTrack} />
