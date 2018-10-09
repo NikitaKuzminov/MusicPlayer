@@ -1,0 +1,7 @@
+.control-buttons {
+  margin-right: 5px;
+}
+
+.control-buttons:hover {
+  color: blueviolet;
+}

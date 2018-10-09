@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { setVolume } from "../actions";
 import { getVolume } from "../selectors";
+import VolumeControls from "../components/VolumeControls/VolumeControls";
 
 class Volume extends React.Component {
   onClick = e => {
@@ -13,13 +14,7 @@ class Volume extends React.Component {
     const setVolume = this.props.setVolume;
     return (
       <div>
-        <p>{volume}</p>
-        <input
-          value={volume}
-          type="range"
-          step={5}
-          onChange={e => setVolume(e.target.value)}
-        />
+        <VolumeControls volume={volume} setVolume={setVolume} />
       </div>
     );
   }

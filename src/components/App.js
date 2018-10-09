@@ -1,6 +1,5 @@
 import React from "react";
-import Controls from "../containers/Controls";
-import Volume from "../containers/Volume";
+import Controls from "./Controls/Controls";
 import TrackList from "../containers/TrackList";
 
 const App = () => (

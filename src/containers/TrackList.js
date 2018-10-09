@@ -1,13 +1,28 @@
 import React from "react";
 import { connect } from "react-redux";
 import { chooseTrack } from "../actions/currentTrack";
-import { getTracks } from "../selectors";
+import { play } from "../actions/controls";
+import { getPlayingStatus, getTracks, getCurrentTrackId } from "../selectors";
 import Track from "../components/Tracks/Tracks";
 
 class TrackList extends React.Component {
+  onClick = track => {
+    const { chooseTrack, currentTrackId, playingStatus, play } = this.props;
+    if (currentTrackId !== track.id) {
+      if (playingStatus) {
+        chooseTrack(track.id);
+        play();
+      } else {
+        chooseTrack(track.id);
+      }
+      play();
+    } else {
+      play();
+    }
+  };
+
   render() {
-    const trackList = this.props.trackList;
-    console.log(trackList);
+    const { trackList, currentTrackId, playingStatus } = this.props;
     return (
       <div>
         <ul>
@@ -15,7 +30,9 @@ class TrackList extends React.Component {
             <Track
               key={track.track_name}
               track={track}
-              onClick={() => this.props.chooseTrack(track)}
+              currentTrackId={currentTrackId}
+              playingStatus={playingStatus}
+              onClick={() => this.onClick(track)}
             />
           ))}
         </ul>
@@ -25,10 +42,12 @@ class TrackList extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  trackList: getTracks(state)
+  trackList: getTracks(state),
+  currentTrackId: getCurrentTrackId(state),
+  playingStatus: getPlayingStatus(state)
 });
 
-const mapDispatchToProps = { chooseTrack };
+const mapDispatchToProps = { chooseTrack, play };
 
 export default connect(
   mapStateToProps,

@@ -3,7 +3,7 @@ import React from "react";
 const CurrentTrack = ({ currentTrack }) => {
   return (
     <div>
-      {currentTrack.authorName !== "" ? (
+      {currentTrack !== undefined ? (
         <p>
           {currentTrack.authorName} - {currentTrack.trackName}
         </p>

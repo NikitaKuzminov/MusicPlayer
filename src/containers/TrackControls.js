@@ -4,31 +4,21 @@ import { connect } from "react-redux";
 import { getPlayingStatus, getCurrentTrack } from "../selectors";
 import { play } from "../actions/controls";
 import { nextTrack, previousTrack } from "../actions/currentTrack";
-import CurrentTrack from "../components/CurrentTrack/CurrentTrack";
-import TrackControls from "../components/TrackControls/TrackControls";
-import Volume from "./Volume";
 
-class Controls extends React.Component {
+import TrackControlsComponent from "../components/TrackControlsComponent/TrackControlsComponent";
+
+class TrackControls extends React.Component {
   render() {
-    const {
-      playingStatus,
-      currentTrack,
-      play,
-      nextTrack,
-      previousTrack
-    } = this.props;
+    const { playingStatus, play, nextTrack, previousTrack } = this.props;
 
-    console.log(currentTrack);
     return (
       <div>
-        <TrackControls
+        <TrackControlsComponent
           playingStatus={playingStatus}
           playClick={play}
           nextClick={nextTrack}
           previousClick={previousTrack}
         />
-        <CurrentTrack currentTrack={currentTrack} />
-        <Volume volume />
       </div>
     );
   }
@@ -48,4 +38,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Controls);
+)(TrackControls);

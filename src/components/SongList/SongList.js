@@ -1,7 +1,5 @@
 import React from "react";
 
-import { songs } from "../../api/songs";
-
 const SongList = ({ songs }) => (
   <div>
     <ul>

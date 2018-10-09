@@ -2,7 +2,7 @@ import React from "react";
 
 import "./TrackControls.css";
 
-const Controls = ({ playingStatus, playClick }) => (
+const Controls = ({ playingStatus, playClick, nextClick, previousClick }) => (
   <div className="controls">
     {playingStatus ? (
       <span className="control-buttons">
@@ -15,10 +15,10 @@ const Controls = ({ playingStatus, playClick }) => (
     )}
 
     <span className="control-buttons">
-      <i className="fas fa-backward" />
+      <i className="fas fa-backward" onClick={previousClick} />
     </span>
     <span className="control-buttons">
-      <i className="fas fa-forward" />
+      <i className="fas fa-forward" onClick={nextClick} />
     </span>
   </div>
 );

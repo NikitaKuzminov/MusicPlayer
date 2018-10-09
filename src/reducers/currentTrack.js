@@ -1,12 +1,17 @@
-import { CHOOSE_TRACK } from "../actions/currentTrack";
+import {
+  CHOOSE_TRACK,
+  NEXT_TRACK,
+  PREVIOUS_TRACK
+} from "../actions/currentTrack";
 
-export const currentTrack = (
-  state = { trackName: "", authorName: "", length: "" },
-  action
-) => {
+export const currentTrack = (state = -1, action) => {
   switch (action.type) {
     case CHOOSE_TRACK:
-      return action.currentTrack;
+      return action.currentTrackId;
+    case NEXT_TRACK:
+      return state + 1;
+    case PREVIOUS_TRACK:
+      return state - 1;
     default:
       return state;
   }
