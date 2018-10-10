@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Timeline from "../components/Timeline/Timeline";
 
 import { setTime } from "../actions/controls";
-import { getCurrentTrack } from "../selectors";
+import { getCurrentTrack, getTime } from "../selectors";
 
 class TimelineControl extends React.Component {
   // componentDidUpdate(prevProps) {
@@ -18,11 +18,11 @@ class TimelineControl extends React.Component {
     if (this.props.currentTrack !== undefined) {
       length = this.props.currentTrack.length;
     }
-    const { setTime } = this.props;
+    const { setTime, time } = this.props;
 
     return (
       <div>
-        <Timeline length={length} setTime={setTime} />
+        <Timeline length={length} setTime={setTime} time={time} />
         <button onClick={() => setTime(29)}>Click me</button>
       </div>
     );
@@ -30,6 +30,7 @@ class TimelineControl extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  time: getTime(state),
   currentTrack: getCurrentTrack(state)
 });
 

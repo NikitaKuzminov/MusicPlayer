@@ -3,24 +3,16 @@ import React from "react";
 import { lengthToMMSS } from "../../functions";
 
 class Timeline extends React.Component {
-  componentDidUpdate(prevProps) {
-    if (this.props.length !== prevProps.length) {
-      console.log(this.props.length);
-    }
-  }
-
   render() {
-    const { length, setTime } = this.props;
-    console.log(length);
+    const { length, time, setTime } = this.props;
     return (
       <div>
-        {length !== undefined ? lengthToMMSS(length) : null}
-        <p>{length}</p>
+        {time !== undefined ? lengthToMMSS(time) : null}
         <input
+          value={time}
           type="range"
           max={length}
-          onChange={() => setTime(this._time.value)}
-          ref={time => (this._time = time)}
+          onChange={e => setTime(e.target.value)}
         />
       </div>
     );
