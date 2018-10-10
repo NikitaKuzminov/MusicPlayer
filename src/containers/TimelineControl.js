@@ -3,19 +3,32 @@ import { connect } from "react-redux";
 
 import Timeline from "../components/Timeline/Timeline";
 
-import { setTime } from "../actions/controls";
-import { getCurrentTrack, getTime } from "../selectors";
+import { setTime, play } from "../actions/controls";
+import { getCurrentTrack, getTime, getPlayingStatus } from "../selectors";
 
 class TimelineControl extends React.Component {
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.currentTrack !== prevProps.currentTrack) {
-  //     this.props(this.props.userID);
-  //   }
-  // }
+  componentWillReceiveProps() {
+    const { playingStatus } = this.props;
+    if (playingStatus) {
+      this.startTimer();
+    } else {
+    }
+  }
 
   startTimer = () => {
     const { time, setTime } = this.props;
     setInterval(() => setTime(time + 1), 1000);
+  };
+  stopTimer = () => {
+    clearInterval();
+  };
+
+  timelineClick = time => {
+    const { setTime, playingStatus, play } = this.props;
+    setTime(time);
+    if (!playingStatus) {
+      play();
+    }
   };
 
   render() {
@@ -23,11 +36,11 @@ class TimelineControl extends React.Component {
     if (this.props.currentTrack !== undefined) {
       length = this.props.currentTrack.length;
     }
-    const { setTime, time } = this.props;
+    const { time } = this.props;
 
     return (
       <div>
-        <Timeline length={length} setTime={setTime} time={time} />
+        <Timeline length={length} setTime={this.timelineClick} time={time} />
         <button onClick={this.startTimer}>Ckick me</button>
       </div>
     );
@@ -36,11 +49,13 @@ class TimelineControl extends React.Component {
 
 const mapStateToProps = state => ({
   time: getTime(state),
-  currentTrack: getCurrentTrack(state)
+  currentTrack: getCurrentTrack(state),
+  playingStatus: getPlayingStatus(state)
 });
 
 const mapDispatchToProps = {
-  setTime
+  setTime,
+  play
 };
 
 export default connect(
