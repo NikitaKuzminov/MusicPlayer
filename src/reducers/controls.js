@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { PLAY, SET_VOLUME, SET_TIME } from "../actions/controls";
+import { PLAY, SET_VOLUME, SET_TIME, RESET_TIME } from "../actions/controls";
 
 const play = (state = false, action) => {
   switch (action.type) {
@@ -24,6 +24,8 @@ const time = (state = 0, action) => {
   switch (action.type) {
     case SET_TIME:
       return action.time;
+    case RESET_TIME:
+      return 0;
     default:
       return state;
   }

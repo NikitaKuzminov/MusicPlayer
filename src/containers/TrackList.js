@@ -1,21 +1,28 @@
 import React from "react";
 import { connect } from "react-redux";
 import { chooseTrack } from "../actions/currentTrack";
-import { play } from "../actions/controls";
+import { play, resetTime } from "../actions/controls";
 import { getPlayingStatus, getTracks, getCurrentTrackId } from "../selectors";
 import Track from "../components/Tracks/Tracks";
 
 class TrackList extends React.Component {
   onClick = track => {
-    const { chooseTrack, currentTrackId, playingStatus, play } = this.props;
+    const {
+      chooseTrack,
+      currentTrackId,
+      playingStatus,
+      play,
+      resetTime
+    } = this.props;
+
     if (currentTrackId !== track.id) {
       if (playingStatus) {
         chooseTrack(track.id);
-        play();
       } else {
         chooseTrack(track.id);
+        play();
       }
-      play();
+      resetTime();
     } else {
       play();
     }
@@ -28,7 +35,7 @@ class TrackList extends React.Component {
         <ul>
           {trackList.map(track => (
             <Track
-              key={track.track_name}
+              key={track.id}
               track={track}
               currentTrackId={currentTrackId}
               playingStatus={playingStatus}
@@ -47,7 +54,7 @@ const mapStateToProps = state => ({
   playingStatus: getPlayingStatus(state)
 });
 
-const mapDispatchToProps = { chooseTrack, play };
+const mapDispatchToProps = { chooseTrack, play, resetTime };
 
 export default connect(
   mapStateToProps,

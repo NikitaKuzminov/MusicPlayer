@@ -4,7 +4,7 @@ import {
   PREVIOUS_TRACK
 } from "../actions/currentTrack";
 
-export const currentTrack = (state = -1, action) => {
+export const currentTrack = (state = 0, action) => {
   switch (action.type) {
     case CHOOSE_TRACK:
       return action.currentTrackId;

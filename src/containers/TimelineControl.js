@@ -13,6 +13,11 @@ class TimelineControl extends React.Component {
   //   }
   // }
 
+  startTimer = () => {
+    const { time, setTime } = this.props;
+    setInterval(() => setTime(time + 1), 1000);
+  };
+
   render() {
     let length;
     if (this.props.currentTrack !== undefined) {
@@ -23,7 +28,7 @@ class TimelineControl extends React.Component {
     return (
       <div>
         <Timeline length={length} setTime={setTime} time={time} />
-        <button onClick={() => setTime(29)}>Click me</button>
+        <button onClick={this.startTimer}>Ckick me</button>
       </div>
     );
   }
