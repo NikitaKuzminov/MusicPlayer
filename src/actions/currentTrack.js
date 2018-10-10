@@ -11,6 +11,11 @@ export const nextTrack = () => ({
   type: NEXT_TRACK
 });
 
+// export const nextTrack = () => dispatch => {
+//   dispatch(setTime(0))
+//   return  {type: NEXT_TRACK}
+// };
+
 export const previousTrack = () => ({
   type: PREVIOUS_TRACK
 });

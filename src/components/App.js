@@ -4,7 +4,7 @@ import TrackList from "../containers/TrackList";
 
 const App = () => (
   <div>
-    <h2>Music Player</h2>
+    <h2 style={{ textAlign: "center" }}>Music Player</h2>
     <Controls />
     <TrackList />
   </div>

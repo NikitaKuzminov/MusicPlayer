@@ -32,7 +32,7 @@ class TrackList extends React.Component {
     const { trackList, currentTrackId, playingStatus } = this.props;
     return (
       <div>
-        <ul>
+        <ul style={{ padding: 0 }}>
           {trackList.map(track => (
             <Track
               key={track.id}

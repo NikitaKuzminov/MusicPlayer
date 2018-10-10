@@ -1,6 +1,11 @@
 .track {
+  width: 600px;
+  margin: 0 auto;
+  padding: 0;
   display: flex;
   align-items: center;
+  border-bottom: 2px solid #ccc;
+  padding-left: 20px;
 }
 
 .track * {
@@ -8,7 +13,7 @@
 }
 
 .current {
-  background-color: #ccc;
+  background-color: rgb(247, 243, 243);
 }
 
 .controls {

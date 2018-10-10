@@ -5,7 +5,7 @@ import {
   SET_VOLUME,
   SET_TIME,
   RESET_TIME,
-  TOGGLE_TIMER
+  SET_TIMER
 } from "../actions/controls";
 
 const play = (state = false, action) => {
@@ -39,7 +39,7 @@ const time = (state = 0, action) => {
 
 const timer = (state = {}, action) => {
   switch (action.type) {
-    case TOGGLE_TIMER:
+    case SET_TIMER:
       return action.timer;
     default:
       return state;
