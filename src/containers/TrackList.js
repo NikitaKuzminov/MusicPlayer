@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { chooseTrack } from "../actions/currentTrack";
-import { play, resetTime } from "../actions/controls";
+import { play, setTime } from "../actions/controls";
 import { getPlayingStatus, getTracks, getCurrentTrackId } from "../selectors";
 import Track from "../components/Tracks/Tracks";
 
@@ -12,7 +12,7 @@ class TrackList extends React.Component {
       currentTrackId,
       playingStatus,
       play,
-      resetTime
+      setTime
     } = this.props;
 
     if (currentTrackId !== track.id) {
@@ -22,7 +22,7 @@ class TrackList extends React.Component {
         chooseTrack(track.id);
         play();
       }
-      resetTime();
+      setTime(0);
     } else {
       play();
     }
@@ -54,7 +54,7 @@ const mapStateToProps = state => ({
   playingStatus: getPlayingStatus(state)
 });
 
-const mapDispatchToProps = { chooseTrack, play, resetTime };
+const mapDispatchToProps = { chooseTrack, play, setTime };
 
 export default connect(
   mapStateToProps,

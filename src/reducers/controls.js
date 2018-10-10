@@ -4,8 +4,10 @@ import {
   PLAY,
   SET_VOLUME,
   SET_TIME,
-  RESET_TIME,
-  SET_TIMER
+  TIMER_START,
+  TIMER_TICK,
+  TIMER_SET_VALUE,
+  TIMER_STOP
 } from "../actions/controls";
 
 const play = (state = false, action) => {
@@ -30,17 +32,21 @@ const time = (state = 0, action) => {
   switch (action.type) {
     case SET_TIME:
       return action.time;
-    case RESET_TIME:
-      return 0;
     default:
       return state;
   }
 };
 
-const timer = (state = {}, action) => {
+const timer = (state = 0, action) => {
   switch (action.type) {
-    case SET_TIMER:
-      return action.timer;
+    case TIMER_START:
+      return (state = action.time);
+    case TIMER_TICK:
+      return state + 1;
+    case TIMER_SET_VALUE:
+      return (state = action.time);
+    case TIMER_STOP:
+      return (state = 0);
     default:
       return state;
   }

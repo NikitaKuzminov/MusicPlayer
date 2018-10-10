@@ -3,7 +3,13 @@ import { connect } from "react-redux";
 
 import Timeline from "../components/Timeline/Timeline";
 
-import { setTime, setTimer, play } from "../actions/controls";
+import {
+  setTime,
+  play,
+  timerStart,
+  timerSetValue,
+  timerStop
+} from "../actions/controls";
 import { nextTrack } from "../actions/currentTrack";
 import {
   getCurrentTrack,
@@ -13,115 +19,62 @@ import {
 } from "../selectors";
 
 class TimelineControl extends React.Component {
-  state = {
-    timer: null,
-    counter: this.props.time
-  };
-
   componentDidMount() {
-    let timer = setInterval(this.tick, 1000);
-    this.setState({ timer });
+    const { timerStart } = this.props;
+    timerStart(0);
   }
-  startTimer() {
-    let timer = setInterval(this.tick, 1000);
-    this.setState({ timer });
-  }
-
-  componentWillUnmount() {
-    this.clearInterval(this.state.timer);
-  }
-
-  tick = () => {
-    this.setState({
-      counter: this.state.counter + 1
-    });
-  };
 
   componentDidUpdate(prevProps) {
     const {
       time,
-      setTime,
+      timerValue,
       playingStatus,
+      setTime,
+      timerSetValue,
       currentTrack,
       nextTrack
     } = this.props;
-    const counter = this.state.counter;
-
-    console.log(counter);
 
     if (playingStatus) {
-      if (prevProps.currentTrack !== undefined) {
-        if (prevProps.currentTrack.id !== currentTrack.id) {
-          this.setState({ counter: 0 });
+      if (prevProps.playingStatus === false) {
+        timerSetValue(time);
+      }
+      if (prevProps.currentTrack === undefined) {
+        timerSetValue(0);
+      } else {
+        if (currentTrack.id !== prevProps.currentTrack.id) {
+          timerSetValue(0);
         }
       }
-      if (counter !== this.props.time || prevProps.time === 0) {
-        setTime(counter);
+      if (time !== timerValue) {
+        setTime(timerValue);
       }
-    } else {
-      //clearInterval(this.state.timer);
+      if (timerValue > currentTrack.length) {
+        nextTrack();
+      }
     }
-
-    // if (playingStatus) {
-    //   if (prevProps.time !== counter) {
-    //     this.setState({ counter: time });
-    //     console.log(time, counter);
-    //     if (prevProps.time !== this.props.time) {
-    //       this.startTimer();
-    //     }
-    //     this.setState({ counter: 1 });
-    //   } else {
-    //     if (prevProps.time === time || prevProps.time === 0) {
-    //       // this.startTimer();
-    //     }
-    //   }
-    //   // if (this.props.time !== counter) {
-    //   //   setTime(counter);
-    //   // }
-    // }
-
-    // if (!playingStatus) {
-    //   clearInterval(this.state.timer);
-    // }
-
-    // if (currentTrack !== undefined) {
-    //   if (prevProps.currentTrack) {
-    //     if (currentTrack.id !== prevProps.currentTrack.id) {
-    //       this.stopTimer();
-    //       this.setState({ counter: 0 });
-    //     }
-    //   }
-    //   if (this.state.counter > currentTrack.length) {
-    //     nextTrack();
-    //     this.setState({ counter: 0 });
-    //   }
-    // }
   }
 
   timelineClick = time => {
-    const { setTime, playingStatus, play } = this.props;
-
+    const { setTime, timerSetValue, playingStatus, play } = this.props;
     setTime(time);
-    this.setState({ counter: parseInt(time) });
+    timerSetValue(parseInt(time));
 
     if (!playingStatus) {
       play();
     }
   };
 
-  stopTimer = () => clearInterval(this.state.timer);
-
   render() {
     let length;
     if (this.props.currentTrack !== undefined) {
       length = this.props.currentTrack.length;
     }
-    const { time } = this.props;
+    const { time, timerStop, timerStart, timerSetValue } = this.props;
 
     return (
       <div>
         <Timeline length={length} setTime={this.timelineClick} time={time} />
-        <button onClick={() => clearInterval(this.state.timer)}>Lol</button>
       </div>
     );
   }
@@ -137,8 +90,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   setTime,
   play,
-  setTimer,
-  nextTrack
+  nextTrack,
+  timerStart,
+  timerSetValue,
+  timerStop
 };
 
 export default connect(
