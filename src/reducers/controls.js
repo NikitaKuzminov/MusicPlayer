@@ -1,6 +1,12 @@
 import { combineReducers } from "redux";
 
-import { PLAY, SET_VOLUME, SET_TIME, RESET_TIME } from "../actions/controls";
+import {
+  PLAY,
+  SET_VOLUME,
+  SET_TIME,
+  RESET_TIME,
+  TOGGLE_TIMER
+} from "../actions/controls";
 
 const play = (state = false, action) => {
   switch (action.type) {
@@ -31,4 +37,13 @@ const time = (state = 0, action) => {
   }
 };
 
-export default combineReducers({ play, volume, time });
+const timer = (state = {}, action) => {
+  switch (action.type) {
+    case TOGGLE_TIMER:
+      return action.timer;
+    default:
+      return state;
+  }
+};
+
+export default combineReducers({ play, volume, time, timer });

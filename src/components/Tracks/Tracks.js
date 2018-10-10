@@ -6,7 +6,7 @@ import Volume from "../../containers/Volume";
 const Track = ({ track, currentTrackId, playingStatus, onClick }) => {
   const current = track.id === currentTrackId ? "current" : "";
   return (
-    <div>
+    <div className={`track ${current}`}>
       {track.id === currentTrackId ? (
         playingStatus ? (
           <i className="fas fa-pause" onClick={onClick} />
@@ -16,8 +16,8 @@ const Track = ({ track, currentTrackId, playingStatus, onClick }) => {
       ) : (
         <i className="fas fa-play" onClick={onClick} />
       )}{" "}
-      <p className={current}>
-        {track.authorName} - {track.trackName} - {track.length}
+      <p>
+        {track.authorName} - {track.trackName}
       </p>
       {track.id === currentTrackId ? <Volume /> : null}
     </div>
