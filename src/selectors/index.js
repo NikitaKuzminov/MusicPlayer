@@ -8,3 +8,5 @@ export const getCurrentTrack = state =>
 export const getCurrentTrackId = state => state.currentTrack;
 
 export const getTracks = state => state.index.trackList;
+
+export const getAudio = state => state.audio;

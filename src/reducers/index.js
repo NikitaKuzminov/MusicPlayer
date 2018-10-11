@@ -4,6 +4,7 @@ import { ADD_TRACK } from "../actions";
 
 import controls from "./controls";
 import { currentTrack } from "./currentTrack";
+import { audio } from "./audio";
 
 const index = (state = { trackList: [] }, action) => {
   switch (action.type) {
@@ -17,4 +18,4 @@ const index = (state = { trackList: [] }, action) => {
   }
 };
 
-export default combineReducers({ index, currentTrack, controls });
+export default combineReducers({ index, currentTrack, controls, audio });

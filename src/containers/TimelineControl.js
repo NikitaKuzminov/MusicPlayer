@@ -7,6 +7,8 @@ import { setTime, play, timerStart, timerSetValue } from "../actions/controls";
 
 import { nextTrack } from "../actions/currentTrack";
 
+import { getAudio } from "../selectors";
+
 import {
   getCurrentTrack,
   getTime,
@@ -28,7 +30,8 @@ class TimelineControl extends React.Component {
       setTime,
       timerSetValue,
       currentTrack,
-      nextTrack
+      nextTrack,
+      audio
     } = this.props;
 
     if (playingStatus) {
@@ -45,6 +48,7 @@ class TimelineControl extends React.Component {
       }
       if (time !== timerValue) {
         setTime(timerValue);
+        audio.currentTime = timerValue;
       }
       if (timerValue > currentTrack.length) {
         nextTrack();
@@ -53,7 +57,7 @@ class TimelineControl extends React.Component {
   }
 
   timelineClick = time => {
-    const { setTime, timerSetValue, playingStatus, play } = this.props;
+    const { setTime, audio, timerSetValue, playingStatus, play } = this.props;
     setTime(time);
     timerSetValue(parseInt(time));
 
@@ -81,7 +85,8 @@ const mapStateToProps = state => ({
   time: getTime(state),
   currentTrack: getCurrentTrack(state),
   playingStatus: getPlayingStatus(state),
-  timerValue: getTimerValue(state)
+  timerValue: getTimerValue(state),
+  audio: getAudio(state)
 });
 
 const mapDispatchToProps = {

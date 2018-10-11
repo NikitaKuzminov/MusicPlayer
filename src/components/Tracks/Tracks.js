@@ -29,10 +29,8 @@ class Track extends React.Component {
     const { track, currentTrackId, playingStatus, onClick } = this.props;
     const current = track.id === currentTrackId ? "current" : "";
 
-    const audio = document.getElementsByClassName("audio")[currentTrackId - 1];
-
     return (
-      <div className={`track ${current}`} onClick={() => this.play(audio)}>
+      <div className={`track ${current}`} onClick={onClick}>
         {track.id === currentTrackId ? (
           playingStatus ? (
             <i className="fas fa-pause" />
@@ -49,7 +47,6 @@ class Track extends React.Component {
             controls
             onEnded={() => console.log("lol")}
             onSeekingCapture={() => console.log("hello")}
-            onVolumeChange={() => this.setVolume(audio)}
           />
           ;{track.authorName} - {track.trackName}
         </p>
