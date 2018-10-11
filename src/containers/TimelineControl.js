@@ -3,14 +3,10 @@ import { connect } from "react-redux";
 
 import Timeline from "../components/Timeline/Timeline";
 
-import {
-  setTime,
-  play,
-  timerStart,
-  timerSetValue,
-  timerStop
-} from "../actions/controls";
+import { setTime, play, timerStart, timerSetValue } from "../actions/controls";
+
 import { nextTrack } from "../actions/currentTrack";
+
 import {
   getCurrentTrack,
   getTime,
@@ -42,6 +38,7 @@ class TimelineControl extends React.Component {
       if (prevProps.currentTrack === undefined) {
         timerSetValue(0);
       } else {
+        // todo: fix crash when last track ends
         if (currentTrack.id !== prevProps.currentTrack.id) {
           timerSetValue(0);
         }
@@ -70,7 +67,7 @@ class TimelineControl extends React.Component {
     if (this.props.currentTrack !== undefined) {
       length = this.props.currentTrack.length;
     }
-    const { time, timerStop, timerStart, timerSetValue } = this.props;
+    const { time } = this.props;
 
     return (
       <div>
@@ -92,8 +89,7 @@ const mapDispatchToProps = {
   play,
   nextTrack,
   timerStart,
-  timerSetValue,
-  timerStop
+  timerSetValue
 };
 
 export default connect(

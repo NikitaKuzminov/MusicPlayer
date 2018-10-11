@@ -1,8 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { getPlayingStatus, getCurrentTrackId, getTracks } from "../selectors";
+import {
+  getPlayingStatus,
+  getCurrentTrackId,
+  getTracks,
+  getVolume
+} from "../selectors";
 import { play } from "../actions/controls";
+import { setVolume } from "../actions/controls";
 import { nextTrack, previousTrack, chooseTrack } from "../actions/currentTrack";
 
 import TrackControlsComponent from "../components/TrackControlsComponent/TrackControlsComponent";
@@ -35,7 +41,7 @@ class TrackControls extends React.Component {
   };
 
   render() {
-    const { playingStatus, play } = this.props;
+    const { playingStatus, play, volume } = this.props;
 
     return (
       <div>
@@ -44,6 +50,7 @@ class TrackControls extends React.Component {
           playClick={play}
           nextClick={this.nextClick}
           previousClick={this.previousClick}
+          volume={volume}
         />
       </div>
     );
@@ -53,14 +60,16 @@ class TrackControls extends React.Component {
 const mapStateToProps = state => ({
   playingStatus: getPlayingStatus(state),
   currentTrackId: getCurrentTrackId(state),
-  tracks: getTracks(state)
+  tracks: getTracks(state),
+  volume: getVolume(state)
 });
 
 const mapDispatchToProps = {
   play,
   nextTrack,
   previousTrack,
-  chooseTrack
+  chooseTrack,
+  setVolume
 };
 
 export default connect(

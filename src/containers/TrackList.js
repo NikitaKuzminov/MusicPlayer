@@ -2,7 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import { chooseTrack } from "../actions/currentTrack";
 import { play, setTime } from "../actions/controls";
-import { getPlayingStatus, getTracks, getCurrentTrackId } from "../selectors";
+import {
+  getPlayingStatus,
+  getTracks,
+  getCurrentTrackId,
+  getVolume
+} from "../selectors";
 import Track from "../components/Tracks/Tracks";
 
 class TrackList extends React.Component {
@@ -29,7 +34,7 @@ class TrackList extends React.Component {
   };
 
   render() {
-    const { trackList, currentTrackId, playingStatus } = this.props;
+    const { trackList, currentTrackId, playingStatus, volume } = this.props;
     return (
       <div>
         <ul style={{ padding: 0 }}>
@@ -40,6 +45,7 @@ class TrackList extends React.Component {
               currentTrackId={currentTrackId}
               playingStatus={playingStatus}
               onClick={() => this.onClick(track)}
+              volume={volume}
             />
           ))}
         </ul>
@@ -51,7 +57,8 @@ class TrackList extends React.Component {
 const mapStateToProps = state => ({
   trackList: getTracks(state),
   currentTrackId: getCurrentTrackId(state),
-  playingStatus: getPlayingStatus(state)
+  playingStatus: getPlayingStatus(state),
+  volume: getVolume(state)
 });
 
 const mapDispatchToProps = { chooseTrack, play, setTime };

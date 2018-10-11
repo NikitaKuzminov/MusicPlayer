@@ -2,6 +2,8 @@ import React from "react";
 
 import { lengthToMMSS } from "../../functions";
 
+import "./Timeline.css";
+
 class Timeline extends React.Component {
   render() {
     const { length, time, setTime } = this.props;
