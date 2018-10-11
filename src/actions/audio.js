@@ -1,6 +1,8 @@
 export const SET_AUDIO = "SET_AUDIO";
 
-export const setAudio = audio => ({
-  type: SET_AUDIO,
-  audio
-});
+export const setAudio = audio => {
+  return {
+    type: SET_AUDIO,
+    audio
+  };
+};

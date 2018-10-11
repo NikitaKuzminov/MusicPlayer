@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { getPlayingStatus, getCurrentTrack } from "../selectors";
-import { play } from "../actions/controls";
+import { playTrack } from "../actions/controls";
 import CurrentTrackComponent from "../components/CurrentTrackComponent/CurrentTrackComponent";
 
 class CurrentTrack extends React.Component {
@@ -22,7 +22,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  play
+  playTrack
 };
 
 export default connect(

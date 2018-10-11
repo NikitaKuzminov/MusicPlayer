@@ -46,7 +46,6 @@ class Track extends React.Component {
             className="audio"
             controls
             onEnded={() => console.log("lol")}
-            onSeekingCapture={() => console.log("hello")}
           />
           ;{track.authorName} - {track.trackName}
         </p>

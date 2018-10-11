@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { chooseTrack } from "../actions/currentTrack";
-import { play, setTime } from "../actions/controls";
+import { playTrack, setTime } from "../actions/controls";
 import { setAudio } from "../actions/audio";
 import {
   getPlayingStatus,
@@ -14,11 +14,26 @@ import Track from "../components/Tracks/Tracks";
 
 class TrackList extends React.Component {
   componentDidUpdate(prevProps) {
-    const { currentTrackId, setAudio, audio } = this.props;
-    if (prevProps.currentTrackId !== currentTrackId) {
-      setAudio(document.getElementsByClassName("audio")[currentTrackId - 1]);
-      console.log(audio);
+    const { playingStatus, currentTrackId } = this.props;
+    const audio = getAudio(currentTrackId);
+
+    audio.play();
+    if (!playingStatus) {
+      const lol = getAudio(prevProps.currentTrackId);
+      console.log("lol", lol);
+      lol.pause();
     }
+
+    if (
+      prevProps.currentTrackId !== 0 &&
+      prevProps.currentTrackId !== currentTrackId
+    ) {
+      const lol = getAudio(prevProps.currentTrackId);
+      console.log("lol2", lol);
+      lol.pause();
+    }
+
+    console.log(audio);
   }
 
   onClick = track => {
@@ -26,7 +41,7 @@ class TrackList extends React.Component {
       chooseTrack,
       currentTrackId,
       playingStatus,
-      play,
+      playTrack,
       setTime,
       audio
     } = this.props;
@@ -34,11 +49,11 @@ class TrackList extends React.Component {
     if (currentTrackId !== track.id) {
       chooseTrack(track.id);
       if (!playingStatus) {
-        play();
+        playTrack();
       }
       setTime(0);
     } else {
-      play();
+      playTrack();
     }
   };
 
@@ -71,7 +86,7 @@ const mapStateToProps = state => ({
   audio: getAudio(state)
 });
 
-const mapDispatchToProps = { chooseTrack, play, setTime, setAudio };
+const mapDispatchToProps = { chooseTrack, playTrack, setTime, setAudio };
 
 export default connect(
   mapStateToProps,

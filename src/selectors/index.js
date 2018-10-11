@@ -9,4 +9,8 @@ export const getCurrentTrackId = state => state.currentTrack;
 
 export const getTracks = state => state.index.trackList;
 
-export const getAudio = state => state.audio;
+//export const getAudio = state => state.audio;
+
+// Get link to audio
+export const getAudio = currentTrackId =>
+  document.getElementsByClassName("audio")[currentTrackId - 1];

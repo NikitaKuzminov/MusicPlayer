@@ -12,7 +12,7 @@ const VolumeControls = ({ volume, setVolume, audio }) => (
       value={volume}
       type="range"
       step={5}
-      onChange={e => onClick(setVolume, e.target.value, audio)}
+      onChange={e => setVolume(e.target.value)}
       style={{ width: "60%" }}
     />
   </div>

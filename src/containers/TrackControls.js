@@ -7,7 +7,7 @@ import {
   getTracks,
   getVolume
 } from "../selectors";
-import { play } from "../actions/controls";
+import { playTrack } from "../actions/controls";
 import { setVolume } from "../actions/controls";
 import { nextTrack, previousTrack, chooseTrack } from "../actions/currentTrack";
 
@@ -15,9 +15,9 @@ import TrackControlsComponent from "../components/TrackControlsComponent/TrackCo
 
 class TrackControls extends React.Component {
   checkStatus = () => {
-    const { play, playingStatus } = this.props;
+    const { playTrack, playingStatus } = this.props;
     if (!playingStatus) {
-      play();
+      playTrack();
     }
   };
 
@@ -65,7 +65,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  play,
+  playTrack,
   nextTrack,
   previousTrack,
   chooseTrack,

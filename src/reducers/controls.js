@@ -5,9 +5,9 @@ import {
   SET_VOLUME,
   SET_TIME,
   TIMER_START,
-  TIMER_TICK,
-  TIMER_SET_VALUE,
-  TIMER_STOP
+  //TIMER_TICK,
+  TIMER_SET_VALUE
+  //TIMER_STOP
 } from "../actions/controls";
 
 const play = (state = false, action) => {
@@ -40,16 +40,27 @@ const time = (state = 0, action) => {
 const timer = (state = 0, action) => {
   switch (action.type) {
     case TIMER_START:
-      return (state = action.time);
-    case TIMER_TICK:
-      return state + 1;
+      return action.time;
     case TIMER_SET_VALUE:
-      return (state = action.time);
-    case TIMER_STOP:
-      return (state = 0);
+      return action.time;
     default:
       return state;
   }
 };
+
+// const timer = (state = 0, action) => {
+//   switch (action.type) {
+//     case TIMER_START:
+//       return (state = action.time);
+//     case TIMER_TICK:
+//       return state + 1;
+//     case TIMER_SET_VALUE:
+//       return (state = action.time);
+//     case TIMER_STOP:
+//       return (state = 0);
+//     default:
+//       return state;
+//   }
+// };
 
 export default combineReducers({ play, volume, time, timer });
