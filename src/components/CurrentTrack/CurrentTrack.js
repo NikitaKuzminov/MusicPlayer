@@ -4,11 +4,11 @@ const CurrentTrack = ({ currentTrack }) => {
   return (
     <div>
       {currentTrack !== undefined ? (
-        <p>
+        <div>
           {currentTrack.authorName} - {currentTrack.trackName}
-        </p>
+        </div>
       ) : (
-        <p>Empty</p>
+        <div>Empty</div>
       )}
     </div>
   );

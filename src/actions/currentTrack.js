@@ -5,7 +5,6 @@ export const NEXT_TRACK = "NEXT_TRACK";
 export const PREVIOUS_TRACK = "PREVIOUS_TRACK";
 
 export const chooseTrack = currentTrackId => dispatch => {
-  dispatch(setTime(0));
   dispatch({
     type: CHOOSE_TRACK,
     currentTrackId

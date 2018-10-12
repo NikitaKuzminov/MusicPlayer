@@ -8,8 +8,6 @@ import "./index.css";
 import App from "./components/App";
 import rootReducer from "./reducers";
 
-import { songs } from "./api/songs";
-import { addTrack } from "./actions/";
 import { fetchTracklist } from "./actions/tracks";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

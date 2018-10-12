@@ -5,7 +5,7 @@ import {
   GET_TRACKLIST_FAILURE
 } from "../actions/tracks";
 
-const tracklist = (state = {}, action) => {
+const tracklist = (state = [], action) => {
   switch (action.type) {
     case GET_TRACKLIST_SUCCESS:
       return (state = action.tracklist);

@@ -10,8 +10,8 @@ class Track extends React.Component {
       currentTrackId,
       playingStatus,
       onClick,
-      audio,
-      nextTrack
+      nextTrack,
+      compareTime
     } = this.props;
     const current = track.id === currentTrackId ? "current" : "";
 
@@ -30,10 +30,10 @@ class Track extends React.Component {
           <audio
             src={track.url}
             className="audio"
-            controls
             onEnded={nextTrack}
+            onTimeUpdate={compareTime}
           />
-          ;{track.authorName} - {track.trackName}
+          {track.authorName} - {track.trackName}
         </p>
         {track.id === currentTrackId ? <Volume /> : null}
       </div>

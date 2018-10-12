@@ -9,10 +9,9 @@ const getTracklistRequest = () => ({
 });
 
 const getTracklistSuccess = json => {
-  console.log(json.search.data.tracks);
   return {
     type: GET_TRACKLIST_SUCCESS,
-    tracklist: json.search.data.tracks
+    tracklist: json
   };
 };
 

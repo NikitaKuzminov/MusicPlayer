@@ -1,19 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import {
-  getPlayingStatus,
-  getCurrentTrackId,
-  getTracks,
-  getVolume
-} from "../selectors";
+import { getPlayingStatus, getCurrentTrackId, getTracks } from "../selectors";
 import { playTrack } from "../actions/controls";
-import { setVolume } from "../actions/controls";
 import { nextTrack, previousTrack, chooseTrack } from "../actions/currentTrack";
 
-import TrackControlsComponent from "../components/TrackControlsComponent/TrackControlsComponent";
+import TrackControls from "../components/TrackControls/TrackControls";
 
-class TrackControls extends React.Component {
+class TrackControlsContainer extends React.Component {
+  playClick = () => {
+    const { currentTrackId, playTrack } = this.props;
+    if (currentTrackId !== 0) {
+      playTrack();
+    } else {
+      this.nextClick();
+    }
+  };
+
   checkStatus = () => {
     const { playTrack, playingStatus } = this.props;
     if (!playingStatus) {
@@ -21,37 +24,36 @@ class TrackControls extends React.Component {
     }
   };
 
-  nextClick = () => {
-    const { nextTrack, chooseTrack, currentTrackId, tracks } = this.props;
-    this.checkStatus();
-    if (currentTrackId === tracks.length) {
-      chooseTrack(1);
-    } else {
-      nextTrack();
-    }
-  };
-
   previousClick = () => {
     const { previousTrack, chooseTrack, currentTrackId, tracks } = this.props;
-    this.checkStatus();
     if (currentTrackId <= 1) {
       chooseTrack(tracks.length);
     } else {
       previousTrack();
     }
+    this.checkStatus();
+  };
+
+  nextClick = () => {
+    const { nextTrack, chooseTrack, currentTrackId, tracks } = this.props;
+    if (currentTrackId === tracks.length) {
+      chooseTrack(1);
+    } else {
+      nextTrack();
+    }
+    this.checkStatus();
   };
 
   render() {
-    const { playingStatus, play, volume } = this.props;
+    const { playingStatus, playTrack } = this.props;
 
     return (
       <div>
-        <TrackControlsComponent
+        <TrackControls
           playingStatus={playingStatus}
-          playClick={play}
+          playClick={playTrack}
           nextClick={this.nextClick}
           previousClick={this.previousClick}
-          volume={volume}
         />
       </div>
     );
@@ -61,19 +63,17 @@ class TrackControls extends React.Component {
 const mapStateToProps = state => ({
   playingStatus: getPlayingStatus(state),
   currentTrackId: getCurrentTrackId(state),
-  tracks: getTracks(state),
-  volume: getVolume(state)
+  tracks: getTracks(state)
 });
 
 const mapDispatchToProps = {
   playTrack,
   nextTrack,
   previousTrack,
-  chooseTrack,
-  setVolume
+  chooseTrack
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TrackControls);
+)(TrackControlsContainer);

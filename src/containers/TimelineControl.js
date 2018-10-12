@@ -3,49 +3,31 @@ import { connect } from "react-redux";
 
 import Timeline from "../components/Timeline/Timeline";
 
-import { setTime, playTrack } from "../actions/controls";
-import { nextTrack, chooseTrack } from "../actions/currentTrack";
+import { playTrack } from "../actions/controls";
 import { getAudio, getCurrentTrackId } from "../selectors";
 import { getCurrentTrack, getTime, getPlayingStatus } from "../selectors";
 
 class TimelineControl extends React.Component {
-  componentDidUpdate(prevProps) {
-    const { currentTrackId, time, setTime } = this.props;
-
-    const audio = getAudio(currentTrackId);
-
-    console.log(time);
-
-    if (audio !== undefined) {
-      setTime(audio.currentTime);
-      console.log("test");
-    }
-  }
-
   timelineClick = time => {
     const { currentTrackId, playingStatus, playTrack } = this.props;
 
     const audio = getAudio(currentTrackId);
     audio.currentTime = time;
-
+    audio.play();
     if (!playingStatus) {
       playTrack();
     }
   };
 
   render() {
-    const { time, currentTrackId } = this.props;
-    const audio = getAudio(currentTrackId);
+    const { time, currentTrack } = this.props;
     let length;
-
-    if (this.props.currentTrack !== undefined) {
-      length = audio.duration;
+    if (currentTrack !== undefined) {
+      length = currentTrack.length;
     }
 
     return (
-      <div>
-        <Timeline length={length} setTime={this.timelineClick} time={time} />
-      </div>
+      <Timeline length={length} setTime={this.timelineClick} time={time} />
     );
   }
 }
@@ -58,10 +40,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  setTime,
-  playTrack,
-  nextTrack,
-  chooseTrack
+  playTrack
 };
 
 export default connect(

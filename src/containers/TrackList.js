@@ -6,45 +6,51 @@ import {
   getPlayingStatus,
   getTracks,
   getCurrentTrackId,
-  getVolume,
-  getAudio
+  getAudio,
+  getTime
 } from "../selectors";
 import Track from "../components/Tracks/Tracks";
 
-import { getTrackListOnSearch } from "../api/songs";
-
 class TrackList extends React.Component {
   componentDidUpdate(prevProps) {
-    const { playingStatus, currentTrackId } = this.props;
+    const { currentTrackId, playingStatus } = this.props;
     const audio = getAudio(currentTrackId);
 
-    audio.play();
-    if (!playingStatus) {
-      const lol = getAudio(prevProps.currentTrackId);
-      lol.pause();
+    if (audio !== undefined) {
+      if (playingStatus) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
     }
-
-    if (
-      prevProps.currentTrackId !== 0 &&
-      prevProps.currentTrackId !== currentTrackId
-    ) {
-      const lol = getAudio(prevProps.currentTrackId);
-      lol.pause();
+    const prevTrackId = prevProps.currentTrackId;
+    if (prevTrackId !== currentTrackId && prevTrackId !== 0) {
+      const audio = getAudio(prevTrackId);
+      audio.pause();
     }
   }
 
-  onClick = track => {
+  compareTime = () => {
+    const { time, currentTrackId, playingStatus, setTime } = this.props;
+    const audio = getAudio(currentTrackId);
+    if (playingStatus) {
+      if (Math.abs(audio.currentTime - time) > 1) {
+        setTime(Math.round(audio.currentTime));
+      }
+    }
+  };
+
+  onClick = trackId => {
     const {
       chooseTrack,
       currentTrackId,
       playingStatus,
-      playTrack,
-      setTime
+      playTrack
     } = this.props;
     const audio = getAudio(currentTrackId);
 
-    if (currentTrackId !== track.id) {
-      chooseTrack(track.id);
+    if (currentTrackId !== trackId) {
+      chooseTrack(trackId);
       if (!playingStatus) {
         playTrack();
       }
@@ -73,13 +79,7 @@ class TrackList extends React.Component {
   };
 
   render() {
-    const {
-      trackList,
-      currentTrackId,
-      playingStatus,
-      volume,
-      nextTrack
-    } = this.props;
+    const { trackList, currentTrackId, playingStatus } = this.props;
     const audio = getAudio(currentTrackId);
     return (
       <div>
@@ -90,10 +90,10 @@ class TrackList extends React.Component {
               track={track}
               currentTrackId={currentTrackId}
               playingStatus={playingStatus}
-              onClick={() => this.onClick(track)}
-              volume={volume}
+              onClick={() => this.onClick(track.id)}
               audio={audio}
               nextTrack={this.nextClick}
+              compareTime={this.compareTime}
             />
           ))}
         </ul>
@@ -106,10 +106,10 @@ const mapStateToProps = state => ({
   trackList: getTracks(state),
   currentTrackId: getCurrentTrackId(state),
   playingStatus: getPlayingStatus(state),
-  volume: getVolume(state)
+  time: getTime(state)
 });
 
-const mapDispatchToProps = { chooseTrack, playTrack, setTime, nextTrack };
+const mapDispatchToProps = { chooseTrack, playTrack, nextTrack, setTime };
 
 export default connect(
   mapStateToProps,
