@@ -3,37 +3,30 @@ import { connect } from "react-redux";
 
 import Timeline from "../components/Timeline/Timeline";
 
-import {
-  setTime,
-  playTrack,
-  timerStart,
-  timerSetValue
-} from "../actions/controls";
-
+import { setTime, playTrack } from "../actions/controls";
 import { nextTrack, chooseTrack } from "../actions/currentTrack";
-
 import { getAudio, getCurrentTrackId } from "../selectors";
-
-import {
-  getCurrentTrack,
-  getTime,
-  getPlayingStatus,
-  getTimerValue
-} from "../selectors";
+import { getCurrentTrack, getTime, getPlayingStatus } from "../selectors";
 
 class TimelineControl extends React.Component {
-  componentDidMount() {
-    const { audio, setTime } = this.props;
+  componentDidUpdate(prevProps) {
+    const { currentTrackId, time, setTime } = this.props;
 
-    //setInterval(() => setTime(this.props.audio.currentTime), 1000);
+    const audio = getAudio(currentTrackId);
+
+    console.log(time);
+
+    if (audio !== undefined) {
+      setTime(audio.currentTime);
+      console.log("test");
+    }
   }
 
-  componentDidUpdate(prevProps) {}
-
   timelineClick = time => {
-    const { setTime, timerSetValue, playingStatus, playTrack } = this.props;
-    setTime(time);
-    timerSetValue(parseInt(time));
+    const { currentTrackId, playingStatus, playTrack } = this.props;
+
+    const audio = getAudio(currentTrackId);
+    audio.currentTime = time;
 
     if (!playingStatus) {
       playTrack();
@@ -41,11 +34,13 @@ class TimelineControl extends React.Component {
   };
 
   render() {
+    const { time, currentTrackId } = this.props;
+    const audio = getAudio(currentTrackId);
     let length;
+
     if (this.props.currentTrack !== undefined) {
-      length = this.props.currentTrack.length;
+      length = audio.duration;
     }
-    const { time } = this.props;
 
     return (
       <div>
@@ -58,17 +53,14 @@ class TimelineControl extends React.Component {
 const mapStateToProps = state => ({
   time: getTime(state),
   currentTrack: getCurrentTrack(state),
-  playingStatus: getPlayingStatus(state),
-  timerValue: getTimerValue(state),
-  currentTrackId: getCurrentTrackId(state)
+  currentTrackId: getCurrentTrackId(state),
+  playingStatus: getPlayingStatus(state)
 });
 
 const mapDispatchToProps = {
   setTime,
   playTrack,
   nextTrack,
-  timerStart,
-  timerSetValue,
   chooseTrack
 };
 

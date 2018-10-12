@@ -3,8 +3,8 @@ import { combineReducers } from "redux";
 import { ADD_TRACK } from "../actions";
 
 import controls from "./controls";
+import tracklist from "./tracklist";
 import { currentTrack } from "./currentTrack";
-import { audio } from "./audio";
 
 const index = (state = { trackList: [] }, action) => {
   switch (action.type) {
@@ -18,4 +18,4 @@ const index = (state = { trackList: [] }, action) => {
   }
 };
 
-export default combineReducers({ index, currentTrack, controls, audio });
+export default combineReducers({ index, currentTrack, controls, tracklist });

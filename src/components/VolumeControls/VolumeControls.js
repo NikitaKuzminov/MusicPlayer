@@ -1,10 +1,5 @@
 import React from "react";
 
-const onClick = (setVolume, sliderValue, audio) => {
-  setVolume(sliderValue);
-  audio.volume = sliderValue / 100;
-};
-
 const VolumeControls = ({ volume, setVolume, audio }) => (
   <div>
     <i className="fas fa-volume-up" />

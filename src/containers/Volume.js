@@ -10,16 +10,22 @@ class Volume extends React.Component {
 
     if (prevProps.volume !== volume) {
       const audio = getAudio(currentTrackId);
-
       audio.volume = volume / 100;
     }
   }
+
+  getLink = () => {
+    fetch(
+      "http://api.napster.com/v2.2/artists/top?apikey=MDFmNzM0MDctMjU3ZC00MDIzLWFjOTAtMmEyMDNhNzkwYTRk"
+    ).then(res => console.log(res));
+  };
 
   render() {
     const { volume, audio, setVolume } = this.props;
     return (
       <div>
         <VolumeControls volume={volume} setVolume={setVolume} audio={audio} />
+        <button onClick={this.getLink}>Lol</button>
       </div>
     );
   }
@@ -27,7 +33,6 @@ class Volume extends React.Component {
 
 const mapStateToProps = state => ({
   volume: getVolume(state),
-  audio: getAudio(state),
   currentTrackId: getCurrentTrackId(state)
 });
 

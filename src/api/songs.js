@@ -18,6 +18,13 @@ export const songs = [
     trackName: "Song name 3",
     authorName: "Author 3",
     length: 216,
-    url: "http://listen.vo.llnwd.net/g3/9/0/5/6/4/1281946509.mp3"
+    url:
+      "http://sampleswap.org/samples-ghost/MELODIC%20SAMPLES%20and%20LOOPS/FULL%20ENSEMBLE%20BPM/783[kb]105_undisputed-truth-smilingfaces.aif.mp3"
   }
 ];
+
+const apiKey = "MDFmNzM0MDctMjU3ZC00MDIzLWFjOTAtMmEyMDNhNzkwYTRk";
+export const getTrackListOnSearch = value =>
+  fetch(
+    `https://api.napster.com/v2.2/search?apikey=${apiKey}&query=${value}&per_type_limit=5`
+  ).then(response => response.json());

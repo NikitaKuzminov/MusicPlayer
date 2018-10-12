@@ -30,6 +30,7 @@ class TrackControls extends React.Component {
       nextTrack();
     }
   };
+
   previousClick = () => {
     const { previousTrack, chooseTrack, currentTrackId, tracks } = this.props;
     this.checkStatus();
