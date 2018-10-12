@@ -16,13 +16,15 @@ const destucture = json => {
       url: track.previewURL
     })
   );
+  lastId = 1;
   return newJson;
 };
 
 const apiKey = "MDFmNzM0MDctMjU3ZC00MDIzLWFjOTAtMmEyMDNhNzkwYTRk";
+const maxTracklistLength = 5;
 export const getTrackListOnSearch = value =>
   fetch(
-    `https://api.napster.com/v2.2/search?apikey=${apiKey}&query=${value}&per_type_limit=5`
+    `https://api.napster.com/v2.2/search?apikey=${apiKey}&query=${value}&per_type_limit=${maxTracklistLength}}`
   )
     .then(response => response.json())
     .then(json => destucture(json));

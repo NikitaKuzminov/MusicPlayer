@@ -16,25 +16,27 @@ class Track extends React.Component {
     const current = track.id === currentTrackId ? "current" : "";
 
     return (
-      <div className={`track ${current}`} onClick={onClick}>
-        {track.id === currentTrackId ? (
-          playingStatus ? (
-            <i className="fas fa-pause" />
+      <div className={`track ${current}`}>
+        <span onClick={onClick}>
+          {track.id === currentTrackId ? (
+            playingStatus ? (
+              <i className="fas fa-pause" />
+            ) : (
+              <i className="fas fa-play" />
+            )
           ) : (
             <i className="fas fa-play" />
-          )
-        ) : (
-          <i className="fas fa-play" />
-        )}
-        <p>
-          <audio
-            src={track.url}
-            className="audio"
-            onEnded={nextTrack}
-            onTimeUpdate={compareTime}
-          />
-          {track.authorName} - {track.trackName}
-        </p>
+          )}
+          <p>
+            <audio
+              src={track.url}
+              className="audio"
+              onEnded={nextTrack}
+              onTimeUpdate={compareTime}
+            />
+            {track.authorName} - {track.trackName}
+          </p>
+        </span>
         {track.id === currentTrackId ? <Volume /> : null}
       </div>
     );

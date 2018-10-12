@@ -7,7 +7,8 @@ import {
   getTracks,
   getCurrentTrackId,
   getAudio,
-  getTime
+  getTime,
+  getLoadingStatus
 } from "../selectors";
 import Track from "../components/Tracks/Tracks";
 
@@ -79,23 +80,29 @@ class TrackList extends React.Component {
   };
 
   render() {
-    const { trackList, currentTrackId, playingStatus } = this.props;
+    const { trackList, isLoading, currentTrackId, playingStatus } = this.props;
     const audio = getAudio(currentTrackId);
     return (
       <div>
         <ul style={{ padding: 0 }}>
-          {trackList.map(track => (
-            <Track
-              key={track.id}
-              track={track}
-              currentTrackId={currentTrackId}
-              playingStatus={playingStatus}
-              onClick={() => this.onClick(track.id)}
-              audio={audio}
-              nextTrack={this.nextClick}
-              compareTime={this.compareTime}
-            />
-          ))}
+          {trackList.length > 0 ? (
+            trackList.map(track => (
+              <Track
+                key={track.id}
+                track={track}
+                currentTrackId={currentTrackId}
+                playingStatus={playingStatus}
+                onClick={() => this.onClick(track.id)}
+                audio={audio}
+                nextTrack={this.nextClick}
+                compareTime={this.compareTime}
+              />
+            ))
+          ) : isLoading ? (
+            <h3>Loading</h3>
+          ) : (
+            <h3 style={{ textAlign: "center" }}>Playlist is empty</h3>
+          )}
         </ul>
       </div>
     );
@@ -104,6 +111,7 @@ class TrackList extends React.Component {
 
 const mapStateToProps = state => ({
   trackList: getTracks(state),
+  isLoading: getLoadingStatus(state),
   currentTrackId: getCurrentTrackId(state),
   playingStatus: getPlayingStatus(state),
   time: getTime(state)
