@@ -1,3 +1,4 @@
+// Convert seconds to mm:ss format
 export const lengthToMMSS = seconds => {
   const minutes = Math.floor(seconds / 60);
   let leftSeconds = seconds - minutes * 60;

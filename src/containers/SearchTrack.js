@@ -9,16 +9,13 @@ import SearchTrack from "../components/SearchTrack/SearchTrack";
 
 class SearchTrackContainer extends React.Component {
   onFetchTracklist = input => {
-    const { playingStatus, fetchTracklist, playTrack } = this.props;
-
-    console.log(input);
-
+    const { playingStatus, playTrack } = this.props;
     if (input !== undefined) {
       if (input.length > 2) {
-        fetchTracklist(input);
-        // if (playingStatus) {
-        //   playTrack();
-        // }
+        this.props.fetchTracklist(input);
+        if (playingStatus) {
+          playTrack();
+        }
       }
     }
   };

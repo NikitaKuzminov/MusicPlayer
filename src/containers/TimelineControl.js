@@ -4,14 +4,14 @@ import { connect } from "react-redux";
 import Timeline from "../components/Timeline/Timeline";
 
 import { playTrack } from "../actions/controls";
-import { getAudio, getCurrentTrackId } from "../selectors";
+import { getAudio } from "../selectors";
 import { getCurrentTrack, getTime, getPlayingStatus } from "../selectors";
 
 class TimelineControl extends React.Component {
   timelineClick = time => {
-    const { currentTrackId, playingStatus, playTrack } = this.props;
+    const { currentTrack, playingStatus, playTrack } = this.props;
 
-    const audio = getAudio(currentTrackId);
+    const audio = getAudio(currentTrack.id);
     audio.currentTime = time;
     audio.play();
     if (!playingStatus) {
@@ -35,7 +35,6 @@ class TimelineControl extends React.Component {
 const mapStateToProps = state => ({
   time: getTime(state),
   currentTrack: getCurrentTrack(state),
-  currentTrackId: getCurrentTrackId(state),
   playingStatus: getPlayingStatus(state)
 });
 

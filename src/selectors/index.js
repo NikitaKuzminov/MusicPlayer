@@ -10,6 +10,6 @@ export const getCurrentTrackId = state => state.currentTrack;
 export const getTracks = state => state.tracklist.tracklist;
 export const getLoadingStatus = state => state.tracklist.isLoading;
 
-// Get link to audio
+// Get link to audio element
 export const getAudio = currentTrackId =>
   document.getElementsByClassName("audio")[currentTrackId - 1];

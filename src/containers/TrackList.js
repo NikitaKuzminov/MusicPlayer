@@ -27,6 +27,7 @@ class TrackList extends React.Component {
     const prevTrackId = prevProps.currentTrackId;
     if (prevTrackId !== currentTrackId && prevTrackId !== 0) {
       const audio = getAudio(prevTrackId);
+      audio.currentTime = 0;
       audio.pause();
     }
   }
@@ -41,34 +42,24 @@ class TrackList extends React.Component {
     }
   };
 
-  onClick = trackId => {
-    const {
-      chooseTrack,
-      currentTrackId,
-      playingStatus,
-      playTrack
-    } = this.props;
-    const audio = getAudio(currentTrackId);
-
-    if (currentTrackId !== trackId) {
-      chooseTrack(trackId);
-      if (!playingStatus) {
-        playTrack();
-      }
-      if (audio !== undefined) {
-        audio.currentTime = 0;
-      }
-    } else {
-      playTrack();
-    }
-  };
-
   checkStatus = () => {
     const { playTrack, playingStatus } = this.props;
     if (!playingStatus) {
       playTrack();
     }
   };
+
+  onClick = trackId => {
+    const { chooseTrack, currentTrackId, playTrack } = this.props;
+
+    if (currentTrackId !== trackId) {
+      chooseTrack(trackId);
+      this.checkStatus();
+    } else {
+      playTrack();
+    }
+  };
+
   nextClick = () => {
     const { nextTrack, chooseTrack, currentTrackId, trackList } = this.props;
     this.checkStatus();
@@ -81,7 +72,6 @@ class TrackList extends React.Component {
 
   render() {
     const { trackList, isLoading, currentTrackId, playingStatus } = this.props;
-    const audio = getAudio(currentTrackId);
     return (
       <div>
         <ul style={{ padding: 0 }}>
@@ -93,7 +83,6 @@ class TrackList extends React.Component {
                 currentTrackId={currentTrackId}
                 playingStatus={playingStatus}
                 onClick={() => this.onClick(track.id)}
-                audio={audio}
                 nextTrack={this.nextClick}
                 compareTime={this.compareTime}
               />
