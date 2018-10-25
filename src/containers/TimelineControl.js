@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import Timeline from "../components/Timeline";
+import { Timeline as TimelineComponent } from "../components/";
 
 import { playTrack } from "../actions/controls";
 import { getAudio } from "../selectors";
@@ -27,7 +27,11 @@ class TimelineControl extends React.Component {
     }
 
     return (
-      <Timeline length={length} setTime={this.timelineClick} time={time} />
+      <TimelineComponent
+        length={length}
+        setTime={this.timelineClick}
+        time={time}
+      />
     );
   }
 }

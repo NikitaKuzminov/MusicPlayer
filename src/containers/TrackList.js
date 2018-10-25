@@ -10,7 +10,7 @@ import {
   getTime,
   getLoadingStatus
 } from "../selectors";
-import Track from "../components/Tracks";
+import { Tracks as TracksComponent } from "../components/";
 
 class TrackList extends React.Component {
   componentDidUpdate(prevProps) {
@@ -77,7 +77,7 @@ class TrackList extends React.Component {
         <ul style={{ padding: 0 }}>
           {trackList.length > 0 ? (
             trackList.map(track => (
-              <Track
+              <TracksComponent
                 key={track.id}
                 track={track}
                 currentTrackId={currentTrackId}

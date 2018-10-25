@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { setVolume } from "../actions/controls";
 import { getVolume, getAudio, getCurrentTrackId } from "../selectors";
-import VolumeControls from "../components/VolumeControls";
+import { VolumeControls as VolumeControlsComponent } from "../components";
 
 class Volume extends React.Component {
   componentDidUpdate(prevProps) {
@@ -19,7 +19,11 @@ class Volume extends React.Component {
     const { volume, audio, setVolume } = this.props;
     return (
       <div>
-        <VolumeControls volume={volume} setVolume={setVolume} audio={audio} />
+        <VolumeControlsComponent
+          volume={volume}
+          setVolume={setVolume}
+          audio={audio}
+        />
       </div>
     );
   }
