@@ -1,30 +1,26 @@
 import { combineReducers } from "redux";
 
+import { handleAction, handleActions } from "redux-actions";
+
 import {
-  GET_TRACKLIST_REQUEST,
-  GET_TRACKLIST_SUCCESS,
-  GET_TRACKLIST_FAILURE
-} from "../actions/tracks";
+  getTracklistRequest,
+  getTracklistSuccess,
+  getTracklistFailure
+} from "../actions";
 
-const tracklist = (state = [], action) => {
-  switch (action.type) {
-    case GET_TRACKLIST_SUCCESS:
-      return (state = action.tracklist);
-    default:
-      return state;
-  }
-};
+const tracklist = handleAction(
+  getTracklistSuccess,
+  (_, { payload }) => payload,
+  []
+);
 
-const isLoading = (state = false, action) => {
-  switch (action.type) {
-    case GET_TRACKLIST_REQUEST:
-      return true;
-    case GET_TRACKLIST_SUCCESS:
-    case GET_TRACKLIST_FAILURE:
-      return false;
-    default:
-      return state;
-  }
-};
+const isLoading = handleActions(
+  {
+    [getTracklistRequest]: () => true,
+    [getTracklistSuccess]: () => false,
+    [getTracklistFailure]: () => false
+  },
+  false
+);
 
 export default combineReducers({ tracklist, isLoading });

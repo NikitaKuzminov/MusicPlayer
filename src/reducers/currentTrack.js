@@ -1,18 +1,12 @@
-import {
-  CHOOSE_TRACK,
-  NEXT_TRACK,
-  PREVIOUS_TRACK
-} from "../actions/currentTrack";
+import { handleActions } from "redux-actions";
 
-export const currentTrack = (state = 0, action) => {
-  switch (action.type) {
-    case CHOOSE_TRACK:
-      return action.currentTrackId;
-    case NEXT_TRACK:
-      return state + 1;
-    case PREVIOUS_TRACK:
-      return state - 1;
-    default:
-      return state;
-  }
-};
+import { chooseTrack, nextTrack, previousTrack } from "../actions";
+
+export const currentTrack = handleActions(
+  {
+    [chooseTrack]: (_, { payload }) => payload,
+    [nextTrack]: state => (state += 1),
+    [previousTrack]: state => (state -= 1)
+  },
+  0
+);

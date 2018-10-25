@@ -26,5 +26,10 @@ export const getTrackListOnSearch = value =>
   fetch(
     `https://api.napster.com/v2.2/search?apikey=${apiKey}&query=${value}&per_type_limit=${maxTracklistLength}}`
   )
-    .then(response => response.json())
+    .then(response => {
+      if (response.status === 200 || response.status === 201) {
+        return response.json();
+      }
+      throw new Error("response error");
+    })
     .then(json => destucture(json));
