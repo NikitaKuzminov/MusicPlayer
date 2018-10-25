@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import Timeline from "../components/Timeline/Timeline";
+import Timeline from "../components/Timeline";
 
 import { playTrack } from "../actions/controls";
 import { getAudio } from "../selectors";

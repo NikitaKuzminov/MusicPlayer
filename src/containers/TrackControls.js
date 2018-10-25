@@ -5,7 +5,7 @@ import { getPlayingStatus, getCurrentTrackId, getTracks } from "../selectors";
 import { playTrack } from "../actions/controls";
 import { nextTrack, previousTrack, chooseTrack } from "../actions/currentTrack";
 
-import TrackControls from "../components/TrackControls/TrackControls";
+import TrackControls from "../components/TrackControls";
 
 class TrackControlsContainer extends React.Component {
   playClick = () => {

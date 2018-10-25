@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { setVolume } from "../actions/controls";
 import { getVolume, getAudio, getCurrentTrackId } from "../selectors";
-import VolumeControls from "../components/VolumeControls/VolumeControls";
+import VolumeControls from "../components/VolumeControls";
 
 class Volume extends React.Component {
   componentDidUpdate(prevProps) {

@@ -1,22 +1,29 @@
 import React from "react";
 
-import "./TrackControls.css";
+import styled from "styled-components";
+
+const ControlsButtonContainer = styled.span`
+  margin-right: 5px;
+
+  :hover {
+    color: blueviolet;
+  }
+`;
 
 const Controls = ({ playingStatus, playClick, nextClick, previousClick }) => {
   const playButton = playingStatus ? "fas fa-pause" : "fas fa-play";
 
   return (
     <div className="controls">
-      <span className="control-buttons">
+      <ControlsButtonContainer>
         <i className={playButton} onClick={playClick} />
-      </span>
-
-      <span className="control-buttons">
+      </ControlsButtonContainer>
+      <ControlsButtonContainer>
         <i className="fas fa-backward" onClick={previousClick} />
-      </span>
-      <span className="control-buttons">
+      </ControlsButtonContainer>
+      <ControlsButtonContainer>
         <i className="fas fa-forward" onClick={nextClick} />
-      </span>
+      </ControlsButtonContainer>
     </div>
   );
 };

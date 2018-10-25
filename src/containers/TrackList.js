@@ -10,7 +10,7 @@ import {
   getTime,
   getLoadingStatus
 } from "../selectors";
-import Track from "../components/Tracks/Tracks";
+import Track from "../components/Tracks";
 
 class TrackList extends React.Component {
   componentDidUpdate(prevProps) {

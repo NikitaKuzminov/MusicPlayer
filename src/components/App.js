@@ -1,5 +1,5 @@
 import React from "react";
-import Controls from "./Controls/Controls";
+import Controls from "./Controls";
 import TrackList from "../containers/TrackList";
 import SearchTrack from "../containers/SearchTrack";
 

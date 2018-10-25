@@ -1,22 +1,25 @@
 import React from "react";
 
-import { lengthToMMSS } from "../../functions";
+import styled from "styled-components";
 
-import "./Timeline.css";
+import { lengthToMMSS } from "../functions";
+
+const RangeInput = styled.input.attrs({
+  type: "range"
+})``;
 
 class Timeline extends React.Component {
   render() {
     const { length, time, setTime } = this.props;
     return (
-      <div>
+      <React.Fragment>
         {time !== undefined ? lengthToMMSS(time) : null}
-        <input
+        <RangeInput
           value={time}
-          type="range"
           max={length}
           onChange={e => setTime(e.target.value)}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }
