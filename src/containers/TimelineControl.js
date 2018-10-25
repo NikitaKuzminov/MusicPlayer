@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { Timeline as TimelineComponent } from "../components/";
+import { Timeline } from "../components/";
 
 import { playTrack } from "../actions/controls";
 import { getAudio } from "../selectors";
@@ -20,17 +20,18 @@ class TimelineControl extends React.Component {
   };
 
   render() {
-    const { time, currentTrack } = this.props;
+    const { time, currentTrack, playingStatus } = this.props;
     let length;
     if (currentTrack !== undefined) {
       length = currentTrack.length;
     }
 
     return (
-      <TimelineComponent
+      <Timeline
         length={length}
         setTime={this.timelineClick}
         time={time}
+        playingStatus={playingStatus}
       />
     );
   }

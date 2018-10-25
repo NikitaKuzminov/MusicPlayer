@@ -5,7 +5,7 @@ import { getPlayingStatus } from "../selectors";
 import { playTrack } from "../actions/controls";
 import { fetchTracklist } from "../actions/tracks";
 
-import { SearchTrack as SearchTrackComponent } from "../components/";
+import { SearchTrack } from "../components/";
 
 class SearchTrackContainer extends React.Component {
   onFetchTracklist = input => {
@@ -21,7 +21,7 @@ class SearchTrackContainer extends React.Component {
   };
 
   render() {
-    return <SearchTrackComponent onFetchTracklist={this.onFetchTracklist} />;
+    return <SearchTrack onFetchTracklist={this.onFetchTracklist} />;
   }
 }
 

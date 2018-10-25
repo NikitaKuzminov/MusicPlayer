@@ -39,7 +39,6 @@ class Tracks extends React.Component {
     const current = track.id === currentTrackId ? "current" : "";
 
     return (
-      //<div className={`track ${current}`}>
       <Track current={current}>
         <TrackContainer onClick={onClick}>
           <Child>
