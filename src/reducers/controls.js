@@ -1,32 +1,13 @@
 import { combineReducers } from "redux";
 
-import { PLAY, SET_VOLUME, SET_TIME } from "../actions/controls";
+import { handleAction } from "redux-actions";
 
-const play = (state = false, action) => {
-  switch (action.type) {
-    case PLAY:
-      return !state;
-    default:
-      return state;
-  }
-};
+import { playTrack, setVolume, setTime } from "../actions";
 
-const volume = (state = 50, action) => {
-  switch (action.type) {
-    case SET_VOLUME:
-      return action.volume_value;
-    default:
-      return state;
-  }
-};
+const play = handleAction(playTrack, state => !state, false);
 
-const time = (state = 0, action) => {
-  switch (action.type) {
-    case SET_TIME:
-      return action.time;
-    default:
-      return state;
-  }
-};
+const volume = handleAction(setVolume, (_, { payload }) => payload, 50);
+
+const time = handleAction(setTime, (_, { payload }) => payload, 0);
 
 export default combineReducers({ play, volume, time });
